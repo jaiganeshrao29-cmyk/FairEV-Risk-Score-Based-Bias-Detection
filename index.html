@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairEV: Advanced Bias Detection</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for interactive visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="bolt">⚡</span>
+                <div class="logo-text">
+                    <h1>FairEV</h1>
+                    <p>Bias Detection System</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-section="home"><span>🏠</span> Home</li>
+                <li data-section="dataset"><span>📊</span> Dataset & Risk</li>
+                <li data-section="dashboard"><span>⚖️</span> Bias Dashboard</li>
+                <li data-section="ai-audit"><span>🤖</span> AI Audit</li>
+                <li data-section="chatbot"><span>💬</span> Assistant</li>
+                <li data-section="simulation"><span>🔄</span> Simulation</li>
+                <li data-section="report"><span>📄</span> Final Report</li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <!-- Section: Home -->
+            <section id="home" class="active">
+                <div class="glass-card hero">
+                    <h2>Welcome to FairEV</h2>
+                    <p class="subtitle">Automated systems are increasingly used to make critical decisions. Our platform helps you ensure these decisions are equitable and transparent.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Analyze</h3>
+                        <p>Generate synthetic applicant data and apply weighted risk scoring.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Detect</h3>
+                        <p>Automatically calculate the Bias Gap between demographic populations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Mitigate</h3>
+                        <p>Simulate weight changes and consult AI for fairness recommendations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Dataset -->
+            <section id="dataset">
+                <div class="header-row">
+                    <h2>Dataset & Risk Scoring</h2>
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="data-table">Applicants</button>
+                        <button class="tab-btn" data-tab="scoring-logic">Scoring System</button>
+                    </div>
+                </div>
+                <div class="tab-content active" id="data-table">
+                    <div class="glass-card table-container">
+                        <table id="applicantsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Income</th>
+                                    <th>Location</th>
+                                    <th>Price</th>
+                                    <th>Subsidy</th>
+                                    <th>Risk Score</th>
+                                    <th>Decision</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-content" id="scoring-logic">
+                    <div class="weights-grid" id="currentWeights">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Dashboard -->
+            <section id="dashboard">
+                <h2>Fairness Analytics Dashboard</h2>
+                <div id="biasAlert" class="alert"></div>
+                <div class="metrics-grid">
+                    <div class="metric-card"><label>Fairness Score</label><span id="fairnessScoreMetric">--</span></div>
+                    <div class="metric-card"><label>Bias Gap</label><span id="biasGapMetric">--</span></div>
+                    <div class="metric-card"><label>Urban Approval</label><span id="urbanRateMetric">--</span></div>
+                    <div class="metric-card"><label>Rural Approval</label><span id="ruralRateMetric">--</span></div>
+                </div>
+                <div class="charts-row">
+                    <div class="glass-card chart-container">
+                        <h3>Risk Distribution</h3>
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                    <div class="glass-card chart-container">
+                        <h3>Approval Rates</h3>
+                        <canvas id="approvalChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: AI Audit -->
+            <section id="ai-audit">
+                <h2>AI-Powered Fairness Audit</h2>
+                <div class="glass-card">
+                    <p>Leverage Google Gemini to analyze metrics and generate a professional audit report.</p>
+                    <button id="generateAuditBtn" class="primary-btn">Generate Audit Report</button>
+                    <div id="auditReportOutput" class="markdown-output"></div>
+                </div>
+            </section>
+
+            <!-- Section: Chatbot -->
+            <section id="chatbot">
+                <h2>Fairness Assistant</h2>
+                <div class="chat-wrapper">
+                    <div id="chatHistory" class="chat-history"></div>
+                    <div class="chat-input-row">
+                        <input type="text" id="chatInput" placeholder="Ask about AI bias or mitigation strategies...">
+                        <button id="sendChatBtn">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Simulation -->
+            <section id="simulation">
+                <h2>Algorithmic Mitigation Sandbox</h2>
+                <div class="simulation-layout">
+                    <div class="controls glass-card">
+                        <h3>Adjust Model Weights</h3>
+                        <div class="slider-group">
+                            <label>Income Weight: <span id="val_income">0.4</span></label>
+                            <input type="range" id="w_income" min="0" max="1" step="0.05" value="0.4">
+                        </div>
+                        <div class="slider-group">
+                            <label>Vehicle Price Weight: <span id="val_price">0.3</span></label>
+                            <input type="range" id="w_price" min="0" max="1" step="0.05" value="0.3">
+                        </div>
+                        <div class="slider-group">
+                            <label>Location Weight (Sensitive): <span id="val_location">0.2</span></label>
+                            <input type="range" id="w_location" min="0" max="1" step="0.05" value="0.2">
+                        </div>
+                        <div class="slider-group">
+                            <label>Previous Subsidy Weight: <span id="val_subsidy">0.1</span></label>
+                            <input type="range" id="w_subsidy" min="0" max="1" step="0.05" value="0.1">
+                        </div>
+                        <button id="resetWeightsBtn">Reset to Default</button>
+                    </div>
+                    <div class="results glass-card">
+                        <h3>Simulated vs Baseline</h3>
+                        <div class="comparison-grid">
+                            <div class="compare-item">
+                                <label>Simulated Fairness</label>
+                                <span id="simFairness">--</span>
+                            </div>
+                            <div class="compare-item">
+                                <label>Simulated Bias Gap</label>
+                                <span id="simBiasGap">--</span>
+                            </div>
+                        </div>
+                        <div class="tip-box">
+                            <p>💡 <b>Tip:</b> Reducing the weight of sensitive features like 'Location' typically bridges the Bias Gap and increases overall fairness.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Report -->
+            <section id="report">
+                <h2>Executive Final Report</h2>
+                <div class="glass-card report-body">
+                    <h3>🎯 Project Objective</h3>
+                    <p>To build a resilient, interactive prototype that demonstrates the lifecycle of automated decision-making—focusing specifically on the detection, measurement, and mitigation of algorithmic bias in Electric Vehicle subsidy allocation.</p>
+                    <h3>🔬 Methodology & Architecture</h3>
+                    <ul>
+                        <li><b>Data Generation:</b> Synthetic dataset modeling demographic features.</li>
+                        <li><b>Algorithmic Engine:</b> Weighted risk-scoring mechanism.</li>
+                        <li><b>Fairness Auditing:</b> Real-time calculation of Approval Rates and Bias Gaps.</li>
+                        <li><b>AI Integration (Gemini):</b> Embedded LLM for report generation and conversational auditing.</li>
+                    </ul>
+                    <h3>🏁 Conclusion</h3>
+                    <p>Automated systems require active monitoring dashboards and dynamic mitigation tools built directly into the application layer to ensure equitable resource distribution.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script type="importmap">
+    {
+      "imports": {
+        "@google/generative-ai": "https://esm.run/@google/generative-ai"
+      }
+    }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

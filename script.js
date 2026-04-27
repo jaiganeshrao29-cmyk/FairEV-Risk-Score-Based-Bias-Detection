@@ -1,4 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+// --- Firebase Configuration ---
+const firebaseConfig = {
+  apiKey: "AIzaSyBEJ82Bro0kmzZJzX1YTyw7ZBvYuj4OuXI",
+  authDomain: "ganesh-9b26a.firebaseapp.com",
+  projectId: "ganesh-9b26a",
+  storageBucket: "ganesh-9b26a.firebasestorage.app",
+  messagingSenderId: "326813936650",
+  appId: "1:326813936650:web:133bc2ffde3d754faec3f3",
+  measurementId: "G-J9D1QRQ3P6"
+};
+
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebaseApp);
 
 // --- State Management ---
 const state = {
